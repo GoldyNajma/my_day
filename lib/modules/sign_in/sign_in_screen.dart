@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_day/common/my_day_colors.dart';
 import 'package:my_day/modules/sign_in/widgets/my_day_logo.dart';
 import 'package:my_day/modules/sign_in/widgets/sign_in_form.dart';
+import 'package:my_day/modules/sign_up/sign_up_screen.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({ Key? key }) : super(key: key);
@@ -42,7 +43,9 @@ class SignInScreen extends StatelessWidget {
                     ),
                     const SizedBox(width: 7),
                     TextButton(
-                      onPressed: () => print('~~~~~~~~~~~~~~SIGN UP pressed'), 
+                      onPressed: () => Navigator.push(context, MaterialPageRoute(
+                        builder: (_) => const SignUpScreen()
+                      )),
                       child: const Text('SIGN UP', style: const TextStyle(
                         color: MyDayColors.black,
                         fontFamily: 'Rubik',
