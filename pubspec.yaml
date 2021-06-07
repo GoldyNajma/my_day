@@ -29,6 +29,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flutter_boxicons: ^3.0.0
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
@@ -81,6 +82,9 @@ flutter:
         - asset: assets/fonts/Rubik/Rubik-Light.ttf
           style: normal
           weight: 300
+        - asset: assets/fonts/Rubik/Rubik-Regular.ttf
+          style: normal
+          weight: 400
         - asset: assets/fonts/Rubik/Rubik-Bold.ttf
           style: normal
           weight: 700
