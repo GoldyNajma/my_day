@@ -1,11 +1,11 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter_boxicons/flutter_boxicons.dart';
-import 'package:my_day/common/my_day_colors.dart';
 import 'package:my_day/data/models/notification/notification_datum.dart';
+import 'package:my_day/modules/notification/widgets/no_notification_widget.dart';
 import 'package:my_day/modules/notification/widgets/notification_group.dart';
 import 'package:my_day/modules/notification/widgets/notification_item.dart';
-
+import 'package:my_day/utils/widgets/my_day_back_app_bar.dart';
+import 'package:my_day/utils/widgets/my_day_overscroll_glow_disallower.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({ Key? key }) : super(key: key);
@@ -29,7 +29,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
       description: 'from: user$index@gmail.com',
     );
 
-    return List.generate(12, generator);
+    return List.generate(random.nextInt(21), generator);
   }
   
   List<List<NotificationDatum>> _getGroupedNotifications(
@@ -89,53 +89,52 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<List<NotificationDatum>> groupedNotifications = _getGroupedNotifications(notifications);
+    List<List<NotificationDatum>> groupedNotifications = [];
+    final TextTheme textTheme = Theme.of(context).textTheme;
+
+    if (notifications.isNotEmpty) {
+      groupedNotifications = _getGroupedNotifications(notifications);
+    }
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: MyDayColors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Boxicons.bx_arrow_back),
-          onPressed: () => Navigator.pop(context),
-          color: MyDayColors.black,
-          iconSize: 32,
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 9),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            const Text('Notification', style: const TextStyle(
-              color: MyDayColors.darkGrey,
-              fontFamily: 'Rubik',
-              fontSize: 24,
-              fontWeight: FontWeight.w700,
-            )),
-            const SizedBox(height: 4),
-            Expanded(
-              child: NotificationListener<OverscrollIndicatorNotification>(
-                onNotification: (overscroll) {
-                  overscroll.disallowGlow();
-                  return false;
-                },
-                child: ListView(
-                  children: groupedNotifications
-                    .map((groupedNotification) => NotificationGroup(
-                        dateTime: groupedNotification[0].date,
-                        notificationItems: groupedNotification
+      appBar: MyDayBackAppBar(),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 9),
+            child: Text('Notification', style: textTheme.headline6),
+          ),
+          const SizedBox(height: 4),
+          Expanded(
+            child: MyDayOverscrollGlowDisallower(
+              child: groupedNotifications.isEmpty 
+                ? MediaQuery.of(context).orientation == Orientation.portrait
+                  ? const Center(child: const NoNotificationWidget())
+                  : const SingleChildScrollView(
+                      child: const Center(child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 20),
+                        child: const NoNotificationWidget(),
+                      )),
+                    )
+                : ListView(
+                    children: groupedNotifications
+                      .map((groupedNotification) => Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 0),
+                        child: NotificationGroup(
+                          dateTime: groupedNotification[0].date,
+                          notificationItems: groupedNotification
                             .map((notification) => NotificationItem(
-                                dateTime: notification.date,
-                                notification: notification.title,
-                                description: notification.description,
+                              dateTime: notification.date,
+                              notification: notification.title,
+                              description: notification.description,
                             )).toList()
-                    )).toList(),
+                        ),
+                      )).toList(),
+                  ),
                 ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

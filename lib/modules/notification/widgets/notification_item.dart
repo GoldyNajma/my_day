@@ -18,6 +18,7 @@ class NotificationItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String hourString = DateFormat('HH.mm').format(this.dateTime);
+    final TextTheme textTheme = Theme.of(context).textTheme;
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 7, 13, 7),
@@ -27,10 +28,7 @@ class NotificationItem extends StatelessWidget {
           children: <Widget>[
             Container(
               alignment: Alignment.center,
-              child: const Icon(Boxicons.bx_task,
-                color: MyDayColors.black,
-                size: 20,
-              ),
+              child: const Icon(Boxicons.bx_task, size: 20),
             ),
             const SizedBox(width: 8),
             Expanded(
@@ -38,19 +36,9 @@ class NotificationItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Text(this.notification, style: const TextStyle(
-                    color: MyDayColors.black,
-                    fontFamily: 'Rubik',
-                    fontSize: 14,
-                    fontStyle: FontStyle.normal,
-                    fontWeight: FontWeight.w400,
-                  )),
-                  Text(this.description, style: const TextStyle(
-                    color: MyDayColors.grey,
-                    fontFamily: 'Rubik',
-                    fontSize: 14,
-                    fontStyle: FontStyle.normal,
-                    fontWeight: FontWeight.w400,
+                  Text(this.notification, style: textTheme.bodyText2),
+                  Text(this.description, style: textTheme.bodyText2!.apply(
+                    color: MyDayColors.lightGrey,
                   )),
                 ],
               ),
@@ -58,12 +46,8 @@ class NotificationItem extends StatelessWidget {
             const SizedBox(width: 8),
             Container(
               alignment: Alignment.bottomRight,
-              child: Text(hourString, style: const TextStyle(
-                color: MyDayColors.black,
-                fontFamily: 'Rubik',
-                fontSize: 11,
-                fontStyle: FontStyle.normal,
-                fontWeight: FontWeight.w400,
+              child: Text(hourString, style: textTheme.bodyText2!.apply(
+                fontSizeDelta: -3,
               )),
             ),
           ],
