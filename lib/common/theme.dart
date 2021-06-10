@@ -4,11 +4,12 @@ import 'my_day_colors.dart';
 
 ThemeData getThemeData() => ThemeData(
   appBarTheme: _getAppBarTheme(),
+  accentColor: MyDayColors.blue,
   cardColor: MyDayColors.brightGrey,
   cardTheme: _getCardTheme(),
   errorColor: MyDayColors.red,
   fontFamily: 'Rubik',
-  primaryColor: MyDayColors.blue,
+  primaryColor: MyDayColors.white,
   scaffoldBackgroundColor: MyDayColors.white,
   textSelectionTheme: _getTextSelectionTheme(),
   textTheme: _getTextTheme().apply(
@@ -44,7 +45,7 @@ AppBarTheme _getAppBarTheme() => AppBarTheme(
   backgroundColor: MyDayColors.white,
   elevation: 0,
   centerTitle: true,
-  titleTextStyle: _getTextTheme().headline6!.apply(color: MyDayColors.blue),
+  titleTextStyle: _getTextTheme().headline6,
   iconTheme: const IconThemeData(color: MyDayColors.black)
 );
 
