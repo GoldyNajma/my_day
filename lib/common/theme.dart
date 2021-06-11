@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import 'my_day_colors.dart';
 
 ThemeData getThemeData() => ThemeData(
-  appBarTheme: _getAppBarTheme(),
   accentColor: MyDayColors.blue,
+  appBarTheme: _getAppBarTheme(),
   cardColor: MyDayColors.brightGrey,
   cardTheme: _getCardTheme(),
+  dialogBackgroundColor: MyDayColors.white,
+  dialogTheme: _getDialogTheme(),
   errorColor: MyDayColors.red,
   fontFamily: 'Rubik',
+  iconTheme: _getIconTheme(),
   primaryColor: MyDayColors.white,
   scaffoldBackgroundColor: MyDayColors.white,
   textSelectionTheme: _getTextSelectionTheme(),
@@ -16,8 +19,14 @@ ThemeData getThemeData() => ThemeData(
     displayColor: MyDayColors.black, 
     bodyColor: MyDayColors.black,
   ),
-  dialogBackgroundColor: MyDayColors.white,
-  iconTheme: _getIconTheme(),
+);
+
+DialogTheme _getDialogTheme() => const DialogTheme(
+  backgroundColor: MyDayColors.white,
+  shape: const RoundedRectangleBorder(
+    borderRadius: const BorderRadius.all(Radius.circular(15)),
+    side: BorderSide.none,
+  ),
 );
 
 IconThemeData _getIconTheme() => const IconThemeData(

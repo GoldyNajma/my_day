@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:my_day/common/my_day_colors.dart';
 import 'package:my_day/modules/notification/notification_screen.dart';
-import 'package:my_day/modules/sign_in/sign_in_screen.dart';
 
 class MyDayMainAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyDayMainAppBar({ 
@@ -12,14 +11,13 @@ class MyDayMainAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
+    ScaffoldState scaffoldState = Scaffold.of(context);
 
     return AppBar(
       leading: IconButton(
         icon: const Icon(Boxicons.bx_menu),
         onPressed: () { 
-          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
-            builder: (_) => const SignInScreen(),
-          ), (_) => false); 
+          scaffoldState.openDrawer();
         },
         iconSize: 25,
       ),
