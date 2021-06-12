@@ -5,7 +5,6 @@ import 'package:my_day/modules/notification/widgets/no_notification_widget.dart'
 import 'package:my_day/modules/notification/widgets/notification_group.dart';
 import 'package:my_day/modules/notification/widgets/notification_item.dart';
 import 'package:my_day/utils/widgets/my_day_back_app_bar.dart';
-import 'package:my_day/utils/widgets/my_day_overscroll_glow_disallower.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({ Key? key }) : super(key: key);
@@ -97,7 +96,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     }
 
     return Scaffold(
-      appBar: MyDayBackAppBar(),
+      appBar: const MyDayBackAppBar(),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -107,31 +106,29 @@ class _NotificationScreenState extends State<NotificationScreen> {
           ),
           const SizedBox(height: 4),
           Expanded(
-            child: MyDayOverscrollGlowDisallower(
-              child: groupedNotifications.isEmpty 
-                ? MediaQuery.of(context).orientation == Orientation.portrait
-                  ? const Center(child: const NoNotificationWidget())
-                  : const SingleChildScrollView(
-                      child: const Center(child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 20),
-                        child: const NoNotificationWidget(),
-                      )),
-                    )
-                : ListView(
-                    children: groupedNotifications
-                      .map((groupedNotification) => Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 0),
-                        child: NotificationGroup(
-                          dateTime: groupedNotification[0].date,
-                          notificationItems: groupedNotification
-                            .map((notification) => NotificationItem(
-                              dateTime: notification.date,
-                              notification: notification.title,
-                              description: notification.description,
-                            )).toList()
-                        ),
-                      )).toList(),
-                  ),
+            child: groupedNotifications.isEmpty 
+              ? MediaQuery.of(context).orientation == Orientation.portrait
+                ? const Center(child: const NoNotificationWidget())
+                : const SingleChildScrollView(
+                    child: const Center(child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 20),
+                      child: const NoNotificationWidget(),
+                    )),
+                  )
+              : ListView(
+                  children: groupedNotifications
+                    .map((groupedNotification) => Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 0),
+                      child: NotificationGroup(
+                        dateTime: groupedNotification[0].date,
+                        notificationItems: groupedNotification
+                          .map((notification) => NotificationItem(
+                            dateTime: notification.date,
+                            notification: notification.title,
+                            description: notification.description,
+                          )).toList()
+                      ),
+                    )).toList(),
                 ),
           ),
         ],

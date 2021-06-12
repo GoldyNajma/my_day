@@ -6,8 +6,7 @@ class MyDayRoundedButton extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final Color? buttonColor;
   final String? text;
-  final double? textSize;
-  final Color? textColor;
+  final TextStyle? textStyle;
 
   const MyDayRoundedButton({ 
     Key? key, 
@@ -15,28 +14,25 @@ class MyDayRoundedButton extends StatelessWidget {
     this.padding, 
     this.buttonColor, 
     this.text, 
-    this.textSize, 
-    this.textColor, 
+    this.textStyle, 
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return ElevatedButton(
       onPressed: onPressed, 
       style: ElevatedButton.styleFrom(
         padding: padding,
         primary: buttonColor,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       ).merge(ButtonStyle(
         elevation: MaterialStateProperty.resolveWith<double>((_) => 0),
       )),
-      child: Text(text ?? '', style: TextStyle(
+      child: Text(text ?? '', style: textTheme.button!.apply(
         color: MyDayColors.white,
-        fontFamily: 'Rubik',
-        fontSize: textSize,
-        fontStyle: FontStyle.normal,
-        fontWeight: FontWeight.w700,
-      ))
+      ).merge(this.textStyle))
     );
   }
 }

@@ -25,6 +25,7 @@ class _SignUpFormState extends State<SignUpForm> {
     
     if(formIsValid) {
       print('~~~~~~~~~~~~~~valid~~~~~~~~~~~~~~');
+      Navigator.pop(context);
     } else {
       print('~~~~~~~~~~~~not valid~~~~~~~~~~~~');
     }
@@ -78,11 +79,10 @@ class _SignUpFormState extends State<SignUpForm> {
           ),
           const SizedBox(height: 33),
           MyDayRoundedButton(
-            buttonColor: MyDayColors.blue,
+            buttonColor: Theme.of(context).accentColor,
             padding: const EdgeInsets.symmetric(horizontal: 55, vertical: 10),
             text: 'Sign up',
-            textColor: MyDayColors.white,
-            textSize: 24,
+            textStyle: const TextStyle(fontSize: 24),
             onPressed: _validateForm,
           ),
         ],
