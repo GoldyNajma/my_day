@@ -83,7 +83,7 @@ class _MyDayTaskDialogState extends State<MyDayTaskDialog> {
           Icon(Boxicons.bx_trash_alt, size: 16),
           const SizedBox(width: 7),
           Text('Delete your task?', 
-            style: themeData.textTheme.bodyText1!.apply(
+            style: themeData.textTheme.button!.apply(
               color: themeData.errorColor,
             ),
           ),

@@ -13,7 +13,6 @@ class SignOutButton extends StatelessWidget {
       buttonColor: themeData.errorColor,
       padding: const EdgeInsets.symmetric(horizontal: 31, vertical: 12),
       text: 'Sign Out',
-      textSize: 14,
       onPressed: () {
         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
           builder: (_) => const SignInScreen(),

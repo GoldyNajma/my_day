@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_day/common/my_day_colors.dart';
 import 'package:my_day/modules/home/home_screen.dart';
 import 'package:my_day/utils/widgets/auth/my_day_email_field.dart';
 import 'package:my_day/utils/widgets/auth/my_day_password_field.dart';
@@ -63,11 +62,10 @@ class _SignInFormState extends State<SignInForm> {
           ),
           const SizedBox(height: 31),
           MyDayRoundedButton(
-            buttonColor: MyDayColors.blue,
+            buttonColor: Theme.of(context).accentColor,
             padding: const EdgeInsets.symmetric(horizontal: 55, vertical: 10),
             text: 'Sign in',
-            textColor: MyDayColors.white,
-            textSize: 24,
+            textStyle: const TextStyle(fontSize: 24),
             onPressed: _validateForm,
           ),
         ],

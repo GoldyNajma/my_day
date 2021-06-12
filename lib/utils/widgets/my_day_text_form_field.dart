@@ -28,7 +28,10 @@ class MyDayTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
+    ThemeData themeData = Theme.of(context);
+    TextTheme textTheme = themeData.textTheme;
+    InputBorder normalInputBorder = _buildInputBorder(Colors.transparent);
+    InputBorder errorInputBorder = _buildInputBorder(themeData.errorColor);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,12 +53,14 @@ class MyDayTextFormField extends StatelessWidget {
             fillColor: MyDayColors.brightGrey,
             suffixIcon: suffixIcon,
             contentPadding: const EdgeInsets.all(20),
-            border: InputBorder.none,
-            enabledBorder: _buildInputBorder(Colors.transparent),
-            errorBorder: _buildInputBorder(MyDayColors.red),
-            errorStyle: textTheme.bodyText2!.apply(color: MyDayColors.red),
-            focusedBorder: _buildInputBorder(Colors.transparent),
-            focusedErrorBorder: _buildInputBorder(MyDayColors.red),
+            border: normalInputBorder,
+            enabledBorder: normalInputBorder,
+            errorBorder: errorInputBorder,
+            errorStyle: textTheme.bodyText2!.apply(
+              color: themeData.errorColor,
+            ),
+            focusedBorder: normalInputBorder,
+            focusedErrorBorder: errorInputBorder,
           ),
         ),
       ],

@@ -37,13 +37,13 @@ class MyDayDeleteTaskDialog extends StatelessWidget {
     TextTheme textTheme = themeData.textTheme;
     TextButton confirmDeleteButton = TextButton(
       onPressed: () => _onConfirmDeletePressed(context), 
-      child: Text('Yes', style: textTheme.bodyText1!.apply(
+      child: Text('Yes', style: textTheme.button!.apply(
         color: MyDayColors.green,
       )),
     );
     TextButton cancelDeleteButton = TextButton(
       onPressed: () => _onCancelDeletePressed(context), 
-      child: Text('No', style: textTheme.bodyText1!.apply(
+      child: Text('No', style: textTheme.button!.apply(
         color: themeData.errorColor,
       )),
     );

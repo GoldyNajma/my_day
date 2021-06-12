@@ -23,8 +23,8 @@ class _MyDayPasswordFieldState extends State<MyDayPasswordField> {
   String? _validatePassword(String? password) {
     if (password == null || password.isEmpty) {
       return 'Required field.';
-    } else if (password.length < 6) {
-      return 'Should be at least 6 characters long.';
+    } else if (password.length < 8) {
+      return 'Should be at least 8 characters long.';
     }
     return null;
   }

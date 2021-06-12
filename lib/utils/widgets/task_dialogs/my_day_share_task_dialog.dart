@@ -95,7 +95,6 @@ class _MyDayShareTaskDialogState extends State<MyDayShareTaskDialog> {
                             buttonColor: MyDayColors.green,
                             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                             text: 'Share',
-                            textSize: 14,
                           ),
                         ],
                       ),

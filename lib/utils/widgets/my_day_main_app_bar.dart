@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
-import 'package:my_day/common/my_day_colors.dart';
 import 'package:my_day/modules/notification/notification_screen.dart';
 
 class MyDayMainAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -10,7 +9,8 @@ class MyDayMainAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
+    ThemeData themeData = Theme.of(context);
+    TextTheme textTheme = themeData.textTheme;
     ScaffoldState scaffoldState = Scaffold.of(context);
 
     return AppBar(
@@ -21,7 +21,9 @@ class MyDayMainAppBar extends StatelessWidget implements PreferredSizeWidget {
         },
         iconSize: 25,
       ),
-      title: Text('MY DAY', style: textTheme.headline6!.apply(color: MyDayColors.blue)),
+      title: Text('MY DAY', style: textTheme.headline6!.apply(
+        color: themeData.accentColor,
+      )),
       actions: [
         IconButton(
           icon: const Icon(Boxicons.bxs_bell),
