@@ -28,15 +28,18 @@ class MyDayTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData themeData = Theme.of(context);
+    TextTheme textTheme = themeData.textTheme;
+    InputBorder normalInputBorder = _buildInputBorder(Colors.transparent);
+    InputBorder errorInputBorder = _buildInputBorder(themeData.errorColor);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(this.label, style: const TextStyle(
+        Text(this.label, style: textTheme.bodyText2!.apply(
           color: MyDayColors.darkGrey,
           fontFamily: 'Ropa Sans',
-          fontSize: 18,
-          fontStyle: FontStyle.normal,
-          fontWeight: FontWeight.w400,
+          fontSizeDelta: 4,
         )),
         const SizedBox(height: 5),
         TextFormField(
@@ -47,14 +50,17 @@ class MyDayTextFormField extends StatelessWidget {
           autovalidateMode: autovalidateMode,
           decoration: InputDecoration(
             filled: true,
-            fillColor: MyDayColors.lightGrey,
+            fillColor: MyDayColors.brightGrey,
             suffixIcon: suffixIcon,
             contentPadding: const EdgeInsets.all(20),
-            border: InputBorder.none,
-            enabledBorder: _buildInputBorder(Colors.transparent),
-            errorBorder: _buildInputBorder(MyDayColors.red),
-            focusedBorder: _buildInputBorder(Colors.transparent),
-            focusedErrorBorder: _buildInputBorder(MyDayColors.red),
+            border: normalInputBorder,
+            enabledBorder: normalInputBorder,
+            errorBorder: errorInputBorder,
+            errorStyle: textTheme.bodyText2!.apply(
+              color: themeData.errorColor,
+            ),
+            focusedBorder: normalInputBorder,
+            focusedErrorBorder: errorInputBorder,
           ),
         ),
       ],

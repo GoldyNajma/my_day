@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:my_day/common/my_day_colors.dart';
 import 'package:my_day/modules/sign_in/widgets/my_day_logo.dart';
 import 'package:my_day/modules/sign_in/widgets/sign_in_form.dart';
 import 'package:my_day/modules/sign_up/sign_up_screen.dart';
+import 'package:my_day/utils/widgets/my_day_overscroll_glow_disallower.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
-      backgroundColor: MyDayColors.white,
-      body: NotificationListener<OverscrollIndicatorNotification>(
-        onNotification: (overscroll) {
-          overscroll.disallowGlow();
-          return false;
-        },
+      body: MyDayOverscrollGlowDisallower(
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(
@@ -32,26 +29,19 @@ class SignInScreen extends StatelessWidget {
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    const Text("Don't have an account?",
-                      style: const TextStyle(
-                        color: MyDayColors.black,
+                    Text("Don't have an account?",
+                      style: textTheme.bodyText2!.apply(
                         fontFamily: 'Ropa Sans',
-                        fontSize: 15,
-                        fontStyle: FontStyle.normal,
-                        fontWeight: FontWeight.w400,
-                      ),
+                        fontSizeDelta: 1,
+                      ), 
                     ),
                     const SizedBox(width: 7),
                     TextButton(
                       onPressed: () => Navigator.push(context, MaterialPageRoute(
                         builder: (_) => const SignUpScreen()
                       )),
-                      child: const Text('SIGN UP', style: const TextStyle(
-                        color: MyDayColors.black,
-                        fontFamily: 'Rubik',
-                        fontSize: 13,
-                        fontStyle: FontStyle.normal,
-                        fontWeight: FontWeight.w700,
+                      child: Text('SIGN UP', style: textTheme.button!.apply(
+                        fontSizeDelta: -1,
                       )),
                     ),
                   ],
