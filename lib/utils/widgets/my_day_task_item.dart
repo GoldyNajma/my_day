@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
 
+import 'task_dialogs/my_day_task_dialog.dart';
+
 class MyDayTaskItem extends StatelessWidget {
+  final int taskId;
   final String title;
   final bool checked;
 
   const MyDayTaskItem({ 
     Key? key, 
+    required this.taskId, 
     required this.title, 
     required this.checked, 
   }) : super(key: key);
@@ -44,6 +48,23 @@ class MyDayTaskItem extends StatelessWidget {
       ));
     }
 
-    return Row(children: rowChildren);
+    return InkWell(
+      onTap: () async { 
+        bool? editTaskSubmitted = await showDialog<bool>(
+          context: context, 
+          builder: (_) => MyDayTaskDialog(taskId: taskId),
+        );
+
+        if (!(editTaskSubmitted != null && editTaskSubmitted)) {
+          print('Edit task canceled...');
+        }
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+        child: Row(
+          children: rowChildren,
+        ),
+      ),
+    );
   }
 }

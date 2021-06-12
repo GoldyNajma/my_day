@@ -7,7 +7,7 @@ import 'package:my_day/modules/home/widgets/drawer/my_day_drawer.dart';
 import 'package:my_day/modules/home/widgets/no_task_widget.dart';
 import 'package:my_day/utils/widgets/my_day_main_app_bar.dart';
 import 'package:my_day/utils/widgets/my_day_task_item.dart';
-import 'package:my_day/utils/widgets/task_dialog/my_day_task_dialog.dart';
+import 'package:my_day/utils/widgets/task_dialogs/my_day_task_dialog.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({ Key? key }) : super(key: key);
@@ -49,24 +49,10 @@ class HomeScreen extends StatelessWidget {
               ),
             )
         : ListView(
-            children: unfinishedTasks.map((Task task) => InkWell(
-              onTap: () async { 
-                bool? editTaskSubmitted = await showDialog<bool>(
-                  context: context, 
-                  builder: (_) => MyDayTaskDialog(task: task),
-                );
-
-                if (!(editTaskSubmitted != null && editTaskSubmitted)) {
-                  print('Edit task canceled...');
-                }
-              },
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
-                child: MyDayTaskItem(
-                  title: task.title,
-                  checked: task.checked,
-                ),
-              ),
+            children: unfinishedTasks.map((Task task) => MyDayTaskItem(
+              taskId: task.id,
+              title: task.title,
+              checked: task.checked,
             )).toList()
           ),
       drawer: const MyDayDrawer(),

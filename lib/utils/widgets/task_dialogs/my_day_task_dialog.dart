@@ -1,26 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:my_day/data/models/task.dart';
-import 'package:my_day/utils/widgets/task_dialog/my_day_task_description_field.dart';
-import 'package:my_day/utils/widgets/task_dialog/my_day_task_title_field.dart';
+import 'package:my_day/utils/widgets/task_dialogs/my_day_task_description_field.dart';
+import 'package:my_day/utils/widgets/task_dialogs/my_day_task_title_field.dart';
 
-class MyDayTaskDialog extends StatelessWidget {
-  final Task? task;
-  final TextEditingController _titleController;
-  final TextEditingController _descriptionController;
+import 'my_day_delete_task_dialog.dart';
+import 'my_day_share_task_dialog.dart';
+
+class MyDayTaskDialog extends StatefulWidget {
+  final int? taskId;
 
   MyDayTaskDialog({ 
     Key? key,
-    this.task,
-  }) :  _titleController = TextEditingController(text: task?.title),
-        _descriptionController = TextEditingController(text: task?.description),
-        super(key: key);
-  
+    this.taskId,
+  }) : super(key: key);
+
+  @override
+  _MyDayTaskDialogState createState() => _MyDayTaskDialogState();
+}
+
+class _MyDayTaskDialogState extends State<MyDayTaskDialog> {
+  late Task? _task = _getSampleTaskById(widget.taskId);
+  late var _titleController = TextEditingController(text: _task?.title);
+  late var _descriptionController = TextEditingController(text: _task?.description);
+
+  Task? _getSampleTaskById(int? id) => id == null ? null : Task(
+    id: id,
+    title: 'Learning Flutter',
+    checked: false,
+    description: 'Learning Flutter\n' * 10,
+  );
+
   void _onCancelPressed(BuildContext context) {
     print('_onCancelPressed');
     Navigator.pop(context, false);
   }
-  
+
   void _onSubmitPressed(BuildContext context) {
     print('_onSubmitPressed');
 
@@ -36,12 +51,25 @@ class MyDayTaskDialog extends StatelessWidget {
     Navigator.pop(context, submitTask);
   }
 
-  void _onSharePressed(BuildContext context) { 
+  void _onSharePressed(BuildContext context) async { 
     print('_onSharePressed');
+    Navigator.pop(context);
+    await showDialog(
+      context: context,
+      builder: (_) => MyDayShareTaskDialog(taskId: _task!.id),
+    );
   }
 
-  void _onDeletePressed(BuildContext context) {
+  void _onDeletePressed(BuildContext context) async {
     print('_onDeletePressed');
+    Navigator.pop(context);
+    await showDialog(
+      context: context,
+      builder: (_) => MyDayDeleteTaskDialog(
+        taskId: _task!.id,
+        checked: _task!.checked,
+      ),
+    );
   }
 
   Widget _buildDeleteTaskButton(BuildContext context) {
@@ -60,6 +88,12 @@ class MyDayTaskDialog extends StatelessWidget {
         ],
       ),
     );
+  }
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _descriptionController.dispose();
+    super.dispose();
   }
 
   @override

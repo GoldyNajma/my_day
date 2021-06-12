@@ -22,7 +22,7 @@ class MyDayDrawer extends StatelessWidget {
     return SafeArea(
       child: Drawer(
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(23),
           child: Column(
             children: <Widget>[
               ProfileWidget(username: user.name, email: user.email),
