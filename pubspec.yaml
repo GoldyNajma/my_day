@@ -60,6 +60,8 @@ flutter:
   # https://flutter.dev/assets-and-images/#from-packages
   assets:
     - assets/images/no_notification.png
+    - assets/images/no_task.png
+    - assets/images/default_profile_image.png
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
@@ -91,6 +93,9 @@ flutter:
           weight: 400
         - asset: assets/fonts/Rubik/Rubik-Bold.ttf
           style: normal
+          weight: 700
+        - asset: assets/fonts/Rubik/Rubik-BoldItalic.ttf
+          style: italic
           weight: 700
         - asset: assets/fonts/Rubik/Rubik-BlackItalic.ttf
           style: italic
