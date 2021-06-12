@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
+import 'package:my_day/utils/widgets/task_dialogs/my_day_delete_task_dialog.dart';
 
 import 'task_dialogs/my_day_task_dialog.dart';
 
@@ -14,6 +15,16 @@ class MyDayTaskItem extends StatelessWidget {
     required this.title, 
     required this.checked, 
   }) : super(key: key);
+
+  void _onDeletePressed(BuildContext context) async {
+    await showDialog(
+      context: context, 
+      builder: (_) => MyDayDeleteTaskDialog(
+        taskId: taskId, 
+        checked: checked,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +53,9 @@ class MyDayTaskItem extends StatelessWidget {
 
     if (this.checked) {
       rowChildren.add(IconButton(
-        icon: Icon(Boxicons.bx_trash_alt),
+        icon: const Icon(Boxicons.bx_trash_alt),
         iconSize: 20,
-        onPressed: () {},
+        onPressed: () => _onDeletePressed(context),
       ));
     }
 

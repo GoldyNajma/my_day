@@ -20,10 +20,12 @@ class MyDayDeleteTaskDialog extends StatelessWidget {
   void _onCancelDeletePressed(BuildContext context) async {
     print('_onCancelDeletePressed');
     Navigator.pop(context);
-    await showDialog(
-      context: context,
-      builder: (_) => MyDayTaskDialog(taskId: this.taskId),
-    );
+    if (!checked) {
+      await showDialog(
+        context: context,
+        builder: (_) => MyDayTaskDialog(taskId: this.taskId),
+      );
+    }
   }
 
   @override

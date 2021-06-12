@@ -82,9 +82,11 @@ class _MyDayTaskDialogState extends State<MyDayTaskDialog> {
         children: [
           Icon(Boxicons.bx_trash_alt, size: 16),
           const SizedBox(width: 7),
-          Text('Delete your task?', style: themeData.textTheme.bodyText1!.apply(
-            color: themeData.errorColor,
-          )),
+          Text('Delete your task?', 
+            style: themeData.textTheme.bodyText1!.apply(
+              color: themeData.errorColor,
+            ),
+          ),
         ],
       ),
     );
@@ -137,7 +139,7 @@ class _MyDayTaskDialogState extends State<MyDayTaskDialog> {
       MyDayTaskDescriptionField(controller: _descriptionController),
     ]);
 
-    if (initialValueIsNotEmpty) {
+    if (initialValueIsNotEmpty && !_task!.checked) {
       dialogColumnChildren.add(const SizedBox(height: 21));
       dialogColumnChildren.add(Row(
         mainAxisAlignment: MainAxisAlignment.end,

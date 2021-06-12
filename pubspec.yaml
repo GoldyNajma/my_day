@@ -59,9 +59,10 @@ flutter:
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
   assets:
+    - assets/images/default_profile_image.png
+    - assets/images/no_finished_task.png
     - assets/images/no_notification.png
     - assets/images/no_task.png
-    - assets/images/default_profile_image.png
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
