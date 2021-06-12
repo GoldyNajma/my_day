@@ -14,9 +14,9 @@ class NoTaskWidget extends StatelessWidget {
         Text('No tasks yet!', style: textTheme.caption!.apply(
           color: MyDayColors.grey,
         )),
-        const SizedBox(height: 20),
+        const SizedBox(height: 32),
         Image.asset('assets/images/no_task.png', width: 181, height: 185),
-        const SizedBox(height: 23),
+        const SizedBox(height: 32),
         Text('“Get things done with My Day, \na list that refreshes every day”', 
           style: textTheme.bodyText2!.apply(
             color: MyDayColors.grey,

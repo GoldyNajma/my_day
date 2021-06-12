@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:my_day/common/my_day_colors.dart';
+import 'package:my_day/modules/finished_task/finished_task_screen.dart';
 
 class FinishedTaskNavigationWidget extends StatelessWidget {
   const FinishedTaskNavigationWidget({ Key? key }) : super(key: key);
@@ -10,7 +11,12 @@ class FinishedTaskNavigationWidget extends StatelessWidget {
     TextTheme textTheme = Theme.of(context).textTheme;
 
     return InkWell(
-      onTap: () { },
+      onTap: () { 
+        Navigator.pop(context);
+        Navigator.push(context, MaterialPageRoute(
+          builder: (_) => const FinishedTaskScreen(),
+        ));
+      },
       child: Column(
         children: [
           const SizedBox(height: 10),
@@ -29,7 +35,7 @@ class FinishedTaskNavigationWidget extends StatelessWidget {
           ),
           const SizedBox(height: 10),
         ],
-      )
+      ),
     );
   }
 }
