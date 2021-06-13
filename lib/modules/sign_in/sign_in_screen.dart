@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:my_day/modules/home/home_screen.dart';
 import 'package:my_day/modules/sign_in/widgets/my_day_logo.dart';
 import 'package:my_day/modules/sign_in/widgets/sign_in_form.dart';
 import 'package:my_day/modules/sign_up/sign_up_screen.dart';
+import 'package:my_day/utils/functions.dart';
 import 'package:my_day/utils/widgets/my_day_overscroll_glow_disallower.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -22,9 +24,21 @@ class SignInScreen extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 const SizedBox(height: 44),
-                const MyDayLogo(),
+                Row(children: [ 
+                  const MyDayLogo(), 
+                ]),
                 const SizedBox(height: 41),
-                const SignInForm(),
+                Builder(
+                  builder: (contextWithScaffold) => SignInForm(
+                    onSuccessSignIn: (_) => Navigator.pushReplacement(context, MaterialPageRoute(
+                      builder: (_) => const HomeScreen(),
+                    )),
+                    onFailedSignIn: (String error) => showTextOnlySnackBar(
+                      context: contextWithScaffold, 
+                      text: error,
+                    ),
+                  ),
+                ),
                 const SizedBox(height: 14),
                 Row(
                   mainAxisSize: MainAxisSize.min,
