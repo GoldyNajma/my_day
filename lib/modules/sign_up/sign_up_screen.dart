@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_day/modules/sign_up/widgets/sign_up_form.dart';
+import 'package:my_day/utils/functions.dart';
 import 'package:my_day/utils/widgets/my_day_back_app_bar.dart';
 import 'package:my_day/utils/widgets/my_day_overscroll_glow_disallower.dart';
 
@@ -29,7 +30,18 @@ class SignUpScreen extends StatelessWidget {
                   style: textTheme.overline,
                 ),
                 const SizedBox(height: 36),
-                const SignUpForm(),
+                Builder(
+                  builder: (BuildContext contextWithScaffold) => SignUpForm(
+                    onSuccessSignUp: (String message) {
+                      showTextOnlySnackBar(context: contextWithScaffold, text: message);
+                      Navigator.pop(context);
+                    },
+                    onFailedSignUp: (String error) => showTextOnlySnackBar(
+                      context: contextWithScaffold, 
+                      text: error,
+                    ),
+                  ),
+                ),
                 const SizedBox(height: 48),
               ],
             ),
