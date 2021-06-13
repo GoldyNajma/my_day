@@ -53,3 +53,7 @@ class NoInternetException extends AppException {
 class UnexpectedErrorException extends AppException {
   UnexpectedErrorException() : super('Unexpected error', '');
 }
+
+class CacheException extends AppException {
+  CacheException([message]) : super(message, 'Cache error');
+}

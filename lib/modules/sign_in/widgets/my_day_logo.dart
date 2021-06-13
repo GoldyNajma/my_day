@@ -11,6 +11,7 @@ class MyDayLogo extends StatelessWidget {
 
     return IntrinsicHeight(
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch, 
         children: <Widget>[
           Text('My \nDay', style: textTheme.headline1!.apply(
