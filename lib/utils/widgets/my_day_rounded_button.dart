@@ -7,6 +7,8 @@ class MyDayRoundedButton extends StatelessWidget {
   final Color? buttonColor;
   final String? text;
   final TextStyle? textStyle;
+  final bool isLoading;
+  final Color loadingColor;
 
   const MyDayRoundedButton({ 
     Key? key, 
@@ -15,6 +17,8 @@ class MyDayRoundedButton extends StatelessWidget {
     this.buttonColor, 
     this.text, 
     this.textStyle, 
+    this.isLoading = false,
+    this.loadingColor = MyDayColors.white,
   }) : super(key: key);
 
   @override
@@ -22,7 +26,7 @@ class MyDayRoundedButton extends StatelessWidget {
     TextTheme textTheme = Theme.of(context).textTheme;
 
     return ElevatedButton(
-      onPressed: onPressed, 
+      onPressed: isLoading ? () {} : onPressed, 
       style: ElevatedButton.styleFrom(
         padding: padding,
         primary: buttonColor,
@@ -30,9 +34,11 @@ class MyDayRoundedButton extends StatelessWidget {
       ).merge(ButtonStyle(
         elevation: MaterialStateProperty.resolveWith<double>((_) => 0),
       )),
-      child: Text(text ?? '', style: textTheme.button!.apply(
-        color: MyDayColors.white,
-      ).merge(this.textStyle))
+      child: isLoading 
+        ? CircularProgressIndicator(color: loadingColor)
+        : Text(text ?? '', style: textTheme.button!.apply(
+          color: MyDayColors.white,
+        ).merge(this.textStyle))
     );
   }
 }
