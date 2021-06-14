@@ -33,4 +33,12 @@ class AuthLocalService {
       throw UnexpectedErrorException();
     }
   }
+
+  Future<void> removeAuthorizationToken() async {
+    bool success = await _localService.remove(_authorizationTokenKey);
+
+    if (!success) {
+      throw RemoveDataException('Failed to remove cached token.');
+    }
+  }
 }

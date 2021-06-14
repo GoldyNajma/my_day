@@ -27,6 +27,14 @@ class AuthRepository {
     }
   }
 
+  Future<String> signOut(String authorizationToken) async {
+    try {
+      return await _authRemoteService.signOut(authorizationToken);
+    } catch (e) {
+      return Future.error('$e');
+    } 
+  }
+
   Future<void> saveAuthorizationTokenToLocal(String authorizationToken) async {
     try {
       return await _authLocalService.setAuthorizationToken(authorizationToken);
@@ -38,6 +46,14 @@ class AuthRepository {
   Future<String> readAuthorizationTokenFromLocal() async {
     try {
       return await _authLocalService.getAuthorizationToken();
+    } catch (e) {
+      return Future.error('$e');
+    }
+  }
+
+  Future<void> removeAuthorizationTokenFromLocal() async {
+    try {
+      return await _authLocalService.removeAuthorizationToken();
     } catch (e) {
       return Future.error('$e');
     }

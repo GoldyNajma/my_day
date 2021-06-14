@@ -15,8 +15,4 @@ class SignInViewModel {
   Future<void> saveAuthorizationToken(AuthorizationToken authorizationToken) async {
     return await _authRepository.saveAuthorizationTokenToLocal(authorizationToken.toString());
   }
-
-  Future<String> readAuthorizationToken() async {
-    return await _authRepository.readAuthorizationTokenFromLocal();
-  }
 }

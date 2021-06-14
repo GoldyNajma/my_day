@@ -25,4 +25,14 @@ class LocalService {
       throw NoDataException();
     }
   }
+
+  Future<bool> remove(String key) async {
+    SharedPreferences sharedPreferences = await _getSharedPreferences();
+    
+    if (sharedPreferences.containsKey(key)) {
+      return await sharedPreferences.remove(key);
+    } else {
+      return true;
+    }
+  }
 }
