@@ -57,3 +57,7 @@ class UnexpectedErrorException extends AppException {
 class CacheException extends AppException {
   CacheException([message]) : super(message, 'Cache error');
 }
+
+class RemoveDataException extends AppException {
+  RemoveDataException([message]) : super(message);
+}

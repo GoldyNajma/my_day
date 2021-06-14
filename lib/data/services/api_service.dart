@@ -30,4 +30,28 @@ class ApiService {
       return constants.noInternetConnectionError;
     }
   }
+
+  Future<dynamic> httpGet({
+    required String endPoint, 
+    Map<String, String>? params,
+    String? authorization
+  }) async {
+    String paramsString = params?.entries
+      .map((param) => '${param.key}=${param.value}')
+      .toList()
+      .join('&') ?? '';
+    
+    try {
+      String url = constants.baseUrl + endPoint + '?' + paramsString;
+      var response = await http.get(Uri.parse(url),
+          headers: {
+            'Authorization': '$authorization',
+            'Content-Type': 'application/json'
+          },
+      );
+      return response;
+    } on SocketException {
+      return constants.noInternetConnectionError;
+    }
+  }
 }

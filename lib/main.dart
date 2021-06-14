@@ -29,9 +29,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'My Day',
       theme: getThemeData(),
-      home: SafeArea(
-        child: SplashScreen(),
-      ),
+      home: const SplashScreen(),
     );
   }
 }

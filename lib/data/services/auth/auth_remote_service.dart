@@ -29,7 +29,7 @@ class AuthRemoteService {
         responseBody = jsonDecode(response.body) as Map<String, dynamic>;
       } on FormatException {
         if (response.statusCode == 500) {
-          throw ServerException('Possible reason: email already registered.');
+          throw ServerException(response.reasonPhrase);
         } else {
           throw NoDataException('Server returned no data');
         }
@@ -40,7 +40,14 @@ class AuthRemoteService {
 
         return signUpResponse.message;
       } else if (response.statusCode == 409) {
-        throw InvalidInputException();
+        String message = '';
+        var responseMessage = responseBody['message'];
+
+        if (responseMessage['email'] != null && 
+            responseMessage['email'][0] == constants.emailAlreadyTakenError) {
+          message += constants.emailAlreadyTakenError;
+        }
+        throw InvalidInputException(message);
       } else {
         throw ServerException(response.reasonPhrase);
       }
@@ -80,6 +87,37 @@ class AuthRemoteService {
         }
       } else if (response.statusCode == 409) {
         throw InvalidInputException();
+      } else {
+        throw ServerException(response.reasonPhrase);
+      }
+    } else if (response is String && response == constants.noInternetConnectionError) {
+      throw NoInternetException();
+    } else {
+      throw UnexpectedErrorException();
+    }
+  }
+
+  Future<String> signOut(String authorizationToken) async {
+    var response = await _apiService.httpGet(
+      endPoint: constants.signOutEndPoint, 
+      authorization: authorizationToken,
+    );
+    
+    if (response is http.Response) {
+      var responseBody;
+      
+      try {
+        responseBody = jsonDecode(response.body) as Map<String, dynamic>;
+      } on FormatException {
+        if (response.statusCode == 500) {
+          throw ServerException();
+        } else {
+          throw NoDataException('Server returned no data');
+        }
+      }
+
+      if (response.statusCode == 200) {
+        return responseBody['message'];
       } else {
         throw ServerException(response.reasonPhrase);
       }
