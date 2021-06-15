@@ -49,33 +49,39 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: const MyDayMainAppBar(),
-      body: FutureBuilder<List<Task>>(
-        future: taskViewModel.getAllTasksAsList(),
-        builder: (futureBuilderContext, snapshot) {
-          if (snapshot.hasData) {
-            List<Task> allTasks = snapshot.data!;
-            List<Task> unfinishedTasks = _getUnfinishedTasks(allTasks);
+      body: RefreshIndicator(
+        onRefresh: () async => setState(() {}),
+        child: FutureBuilder<List<Task>>(
+          future: taskViewModel.getAllTasksAsList(),
+          builder: (futureBuilderContext, snapshot) {
+            if (snapshot.hasData) {
+              List<Task> allTasks = snapshot.data!;
+              List<Task> unfinishedTasks = _getUnfinishedTasks(allTasks);
 
-            return _buildTaskListWidget(context, unfinishedTasks);
-          } else if (snapshot.hasError) {
-            showTextOnlySnackBar(
-              context: context, 
-              text: 'Failed to load tasks.\n${snapshot.error}',
-            );
+              return _buildTaskListWidget(context, unfinishedTasks);
+            } else if (snapshot.hasError) {
+              WidgetsBinding.instance!.addPostFrameCallback((_) {
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                showTextOnlySnackBar(
+                  context: futureBuilderContext, 
+                  text: 'Failed to load tasks.\n${snapshot.error}'
+                );
+              });
 
-            return Center(
-              child: MyDayRoundedButton(
-                onPressed: () => setState(() {}),
-                buttonColor: themeData.accentColor,
-                text: 'Retry load tasks',
-              ),
-            );
-          } else {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
+              return Center(
+                child: MyDayRoundedButton(
+                  onPressed: () => setState(() {}),
+                  buttonColor: themeData.accentColor,
+                  text: 'Retry load tasks',
+                ),
+              );
+            } else {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
           }
-        }
+        ),
       ),
       drawer: const MyDayDrawer(),
       floatingActionButton: FloatingActionButton(
