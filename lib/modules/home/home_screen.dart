@@ -39,6 +39,14 @@ class _HomeScreenState extends State<HomeScreen> {
             taskId: task.id,
             title: task.title,
             checked: task.checked,
+            onCheckChanged: (_) => setState(() {}),
+            onCheckChangeError: (error) {
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                showTextOnlySnackBar(
+                  context: context, 
+                  text: 'Failed to load tasks.\n${error}'
+                );
+            },
           )).toList()
         );
 
