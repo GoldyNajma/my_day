@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:my_day/data/models/task.dart';
 import 'package:my_day/modules/task/task_view_model.dart';
@@ -18,17 +16,7 @@ class FinishedTaskScreen extends StatefulWidget {
 }
 
 class _FinishedTaskScreenState extends State<FinishedTaskScreen> {
-  List<Task> _getSampleTasks() {
-    final Random random = Random();
-
-    return List.generate(random.nextInt(31), (index) => Task(
-      id: index,
-      title: 'Learning Flutter' * (index),
-      description: 'Flutter widgets\nMake a simple application',
-      checked: random.nextBool(),
-      shared: false));
-  }
-
+  
   List<Task> _getFinishedTasks(List<Task> tasks) => tasks
     .where((Task task) => task.checked)
     .toList();
@@ -59,6 +47,14 @@ class _FinishedTaskScreenState extends State<FinishedTaskScreen> {
                   taskId: task.id,
                   title: task.title,
                   checked: task.checked,
+                  onCheckChanged: (_) => setState(() {}),
+                  onCheckChangeError: (error) {
+                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                    showTextOnlySnackBar(
+                      context: context, 
+                      text: 'Failed to load tasks.\n${error}'
+                    );
+                  },
                 )).toList()
               );
         } else if (snapshot.hasError) {

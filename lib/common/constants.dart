@@ -6,4 +6,5 @@ final String signOutEndPoint = '/api/logout';
 final String getProfileEndPoint = '/api/profile';
 final String noInternetConnectionError = 'No internet connection';
 final String tasksEndPoint = '/api/tasks';
+final String updateCheckTaskEndpoint = '/api/task/check';
 final String emailAlreadyTakenError = 'The email has already been taken.';

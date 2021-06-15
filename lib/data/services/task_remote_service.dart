@@ -7,6 +7,7 @@ import 'package:my_day/data/models/all_tasks.dart';
 import 'package:my_day/data/models/api_responses/create_new_task_response.dart';
 import 'package:my_day/data/models/api_responses/get_all_tasks_response.dart';
 import 'package:my_day/data/models/request_body/create_new_task_request_body.dart';
+import 'package:my_day/data/models/request_body/update_task_check_request_body.dart';
 import 'package:my_day/data/services/api_service.dart';
 
 class TaskRemoteService {
@@ -69,6 +70,42 @@ class TaskRemoteService {
         GetAllTasksResponse getAllTasksResponse = GetAllTasksResponse.fromJson(responseBody);
 
         return getAllTasksResponse.data!;
+      } else {
+        throw ServerException(response.reasonPhrase);
+      }
+    } else if (response is String && response == constants.noInternetConnectionError) {
+      throw NoInternetException();
+    } else {
+      throw UnexpectedErrorException();
+    }
+  }
+
+  Future<String> updateCheckTask(
+    int id, 
+    UpdateTaskCheckRequestBody requestBody, 
+    String authorizationToken
+  ) async {
+    var response = await _apiService.httpPut(
+      endPoint: constants.updateCheckTaskEndpoint + '/$id', 
+      body: requestBody,
+      authorization: authorizationToken,
+    );
+    
+    if (response is http.Response) {
+      var responseBody;
+      
+      try {
+        responseBody = jsonDecode(response.body) as Map<String, dynamic>;
+      } on FormatException {
+        if (response.statusCode == 500) {
+          throw ServerException(response.reasonPhrase);
+        } else {
+          throw NoDataException('Server returned no data. ${response.reasonPhrase}');
+        }
+      }
+
+      if (response.statusCode == 200) {
+        return responseBody['message'];
       } else {
         throw ServerException(response.reasonPhrase);
       }
