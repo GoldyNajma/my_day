@@ -85,11 +85,11 @@ class _MyDayTaskDialogState extends State<MyDayTaskDialog> {
           const SizedBox(width: 7),
           Text('Delete your task?', 
             style: themeData.textTheme.button!.apply(
-              color: themeData.errorColor,
-            ),
-          ),
-        ],
-      ),
+              color: themeData.errorColor
+            )
+          )
+        ]
+      )
     );
   }
   @override
