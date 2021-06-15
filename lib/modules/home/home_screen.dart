@@ -20,6 +20,8 @@ class HomeScreen extends StatelessWidget {
       title: 'Learning Flutter' * (index),
       description: 'Flutter widgets\nMake a simple application',
       checked: random.nextBool(),
+      shared: false,
+      sharedUsers: null
     ));
   }
 
