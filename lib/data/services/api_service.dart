@@ -54,4 +54,25 @@ class ApiService {
       return constants.noInternetConnectionError;
     }
   }
+
+  Future<dynamic> httpPut({
+    required String endPoint, 
+    required RequestBody body,
+    String? authorization,
+  }) async {
+    String jsonString = json.encode(body.toJson());
+    
+    try {
+      var response = await http.put(Uri.parse(constants.baseUrl + endPoint),
+          headers: {
+            'Authorization': '$authorization',
+            'Content-Type': 'application/json'
+          },
+          body: jsonString,
+      );
+      return response;
+    } on SocketException {
+      return constants.noInternetConnectionError;
+    }
+  }
 }
