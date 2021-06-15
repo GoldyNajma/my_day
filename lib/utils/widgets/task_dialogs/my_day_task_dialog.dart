@@ -23,13 +23,14 @@ class _MyDayTaskDialogState extends State<MyDayTaskDialog> {
   late Task? _task = _getSampleTaskById(widget.taskId);
   late var _titleController = TextEditingController(text: _task?.title);
   late var _descriptionController = TextEditingController(text: _task?.description);
+  late bool _isLoading = false;
 
   Task? _getSampleTaskById(int? id) => id == null ? null : Task(
     id: id,
     title: 'Learning Flutter',
     checked: false,
     description: 'Learning Flutter\n' * 10,
-  );
+    shared: false);
 
   void _onCancelPressed(BuildContext context) {
     print('_onCancelPressed');
@@ -38,10 +39,10 @@ class _MyDayTaskDialogState extends State<MyDayTaskDialog> {
 
   void _onSubmitPressed(BuildContext context) {
     print('_onSubmitPressed');
-
-    String currentTitle = _titleController.text;
-    String currentDescription = _descriptionController.text;
-    bool submitTask = false;
+    setState(() => _isLoading = !_isLoading);
+    final currentTitle = _titleController.text;
+    final currentDescription = _descriptionController.text;
+    var submitTask = false;
     print('currentTitle: $currentTitle');
     print('currentDescription: $currentDescription');
 
@@ -84,11 +85,11 @@ class _MyDayTaskDialogState extends State<MyDayTaskDialog> {
           const SizedBox(width: 7),
           Text('Delete your task?', 
             style: themeData.textTheme.button!.apply(
-              color: themeData.errorColor,
-            ),
-          ),
-        ],
-      ),
+              color: themeData.errorColor
+            )
+          )
+        ]
+      )
     );
   }
   @override

@@ -18,7 +18,7 @@ class FinishedTaskScreen extends StatelessWidget {
       title: 'Learning Flutter' * (index),
       description: 'Flutter widgets\nMake a simple application',
       checked: random.nextBool(),
-    ));
+      shared: false));
   }
 
   List<Task> _getFinishedTasks(List<Task> tasks) => tasks
