@@ -26,7 +26,7 @@ class MyDayRoundedButton extends StatelessWidget {
     TextTheme textTheme = Theme.of(context).textTheme;
 
     return ElevatedButton(
-      onPressed: onPressed, 
+      onPressed: isLoading ? () {} : onPressed, 
       style: ElevatedButton.styleFrom(
         padding: padding,
         primary: buttonColor,
